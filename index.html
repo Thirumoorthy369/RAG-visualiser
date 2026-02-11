@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAG Workflow Visualizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ─── TOP BAR ──────────────────────────────────────────────── -->
+<header class="topbar">
+  <div class="topbar-left">
+    <span class="logo">◈</span>
+    <h1>RAG Workflow Visualizer</h1>
+    <span class="badge">Educational Prototype</span>
+  </div>
+  <div class="topbar-right">
+    <label class="toggle-label">
+      <input type="checkbox" id="toggleTech" />
+      <span class="toggle-slider"></span>
+      Show Technical Details
+    </label>
+    <label class="toggle-label">
+      <input type="checkbox" id="toggleGraph" />
+      <span class="toggle-slider"></span>
+      Graph Mode
+    </label>
+  </div>
+</header>
+
+<!-- ─── HERO ─────────────────────────────────────────────────── -->
+<section class="hero">
+  <h2>How Retrieval-Augmented Generation Works</h2>
+  <p>Watch a production RAG system operate step-by-step. Upload a document, ask a question, and see every internal stage animated in real time.</p>
+  <div class="hero-pipeline">
+    <span class="hp" style="--c:#3b82f6">📄 Collect</span><span class="arrow">→</span>
+    <span class="hp" style="--c:#8b5cf6">✂️ Chunk</span><span class="arrow">→</span>
+    <span class="hp" style="--c:#f59e0b">🧮 Embed</span><span class="arrow">→</span>
+    <span class="hp" style="--c:#10b981">📦 Store</span><span class="arrow">→</span>
+    <span class="hp" style="--c:#ef4444">🔍 Retrieve</span><span class="arrow">→</span>
+    <span class="hp" style="--c:#ec4899">🏆 Rerank</span><span class="arrow">→</span>
+    <span class="hp" style="--c:#6366f1">📝 Prompt</span><span class="arrow">→</span>
+    <span class="hp" style="--c:#22d3ee">🤖 Generate</span><span class="arrow">→</span>
+    <span class="hp" style="--c:#a3e635">✅ Evaluate</span>
+  </div>
+</section>
+
+<!-- ─── CONTROLS ─────────────────────────────────────────────── -->
+<section class="controls">
+  <div class="control-card">
+    <h3>1️⃣ Document Ingestion</h3>
+    <p>Upload a PDF to start the ingestion pipeline</p>
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" id="fileInput" accept=".pdf,.txt" />
+      <div class="upload-icon">📄</div>
+      <span>Drop a PDF or click to select</span>
+      <span class="upload-hint">Simulated extraction — any file triggers the demo</span>
+    </div>
+    <button class="btn btn-primary" id="btnIngest" disabled>🏗️ Run Ingestion Pipeline</button>
+  </div>
+  <div class="control-card">
+    <h3>2️⃣ Question Answering</h3>
+    <p>Ask a question to trigger the retrieval pipeline</p>
+    <input type="text" id="queryInput" class="query-input" placeholder="e.g. What are TypeScript generics?" disabled />
+    <div class="suggested-queries">
+      <button class="sq" data-q="What is TypeScript?">What is TypeScript?</button>
+      <button class="sq" data-q="Explain generics in TypeScript">Explain generics</button>
+      <button class="sq" data-q="What are enums?">What are enums?</button>
+      <button class="sq" data-q="How do interfaces work?">Interfaces?</button>
+      <button class="sq" data-q="What is strict null checking?">Strict null checks?</button>
+    </div>
+    <button class="btn btn-accent" id="btnAsk" disabled>❓ Run QA Pipeline</button>
+  </div>
+</section>
+
+<!-- ─── PIPELINE CANVAS ──────────────────────────────────────── -->
+<section class="pipeline" id="pipeline">
+  <!-- Stages injected by JS -->
+</section>
+
+<!-- ─── GRAPH MODE OVERLAY ───────────────────────────────────── -->
+<section class="graph-section hidden" id="graphSection">
+  <h3>🕸️ Knowledge Graph — Similarity Visualization</h3>
+  <canvas id="graphCanvas" width="900" height="500"></canvas>
+  <p class="graph-legend">
+    <span class="gl-dot" style="background:#22d3ee"></span> Query
+    <span class="gl-dot" style="background:#3b82f6"></span> Chunk (retrieved)
+    <span class="gl-dot" style="background:#334155"></span> Chunk (not retrieved)
+    — Edge thickness = similarity score
+  </p>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <p>RAG Workflow Visualizer · Educational Prototype · No real AI models — all stages simulated but architecturally accurate</p>
+</footer>
+
+<script src="engine.js"></script>
+</body>
+</html>
